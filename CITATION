@@ -1,0 +1,10 @@
+citHeader("To cite package 'anonymizeR' in publications use:")
+
+citEntry(entry = "Manual",
+  title = "anonymizeR: Data Anonymization Tool",
+  author = as.person("Karan Shukla"),
+  year = "2015",
+  textVersion =
+  paste("Shukla, Karan (2015).",
+        "anonymizeR: Data Anonymization Tool")
+)
