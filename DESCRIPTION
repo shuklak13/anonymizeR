@@ -1,7 +1,7 @@
 Package: anonymizeR
 Type: Package
 Title: Provides several functions useful for anonymizing data in data frames.
-Version: 1.0
+Version: 0.8
 Date: 2015-08-14
 Authors@R: person("Karan", "Shukla", email = "shuklak13@gmail.com", role = c("aut", "cre"))
 Description: More about what it does (maybe more than one line)
@@ -10,3 +10,5 @@ URL: https://github.com/shuklak13/anonymizeR
 Depends: R (>= 3.2.1)
 License: MIT + file LICENSE
 LazyData: true
+Suggests: knitr
+VignetteBuilder: knitr

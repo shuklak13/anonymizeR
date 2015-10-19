@@ -10,6 +10,8 @@
 #' required argument for numeric generalization
 #' @param rightClosed numeric - should boundaries be closed right? False by default
 #' @param newCategories categorical - new categories to replace the old
+#' @param oldCategories categories being replaced. If not provided, all categories in the
+#' column are used in order of appearance.
 #' @param mapping categorical - a numeric vector containing a mapping of old categories
 #' to new categories. See details for more information.
 #' @return data.frame with with specified column generalized
@@ -31,12 +33,12 @@
 #' @export
 generalize <- function(x, col, 
                            splits = NULL, numSplits = NULL, rightClosed = FALSE,
-                           newCategories = NULL, mapping = NULL){
+                           newCategories = NULL, oldCategories = unique(x[[col]]), mapping = NULL){
     
     if(!is.null(splits) | !is.null(numSplits))
         generalize_numeric(x, col, splits, numSplits, rightClosed)
     else if(!is.null(newCategories) & !is.null(mapping))
-        generalize_categorical(x, col, newCategories=newCategories, mapping=mapping)
+        generalize_categorical(x, col, newCategories, mapping)
     else stop("Incorrect arguments \neither provide splits argument for numeric generalization,
               \nor provide oldCategories, newCategories, and mapping arguments for categorical generalization")
 }

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Karan Shukla" />
+
+<meta name="date" content="2015-08-19" />
+
+<title>Overview</title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%7D%0Apre%20%7B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">Overview</h1>
+<h4 class="author"><em>Karan Shukla</em></h4>
+<h4 class="date"><em>2015-08-19</em></h4>
+</div>
+
+
+<div id="anonymizer" class="section level1">
+<h1>anonymizeR</h1>
+<p>anonymizeR is a package that assists in data anonymization by creating easy-to-use methods for data perturbation, generalization, and suppression.</p>
+<div id="data-anonymization-what-is-it-and-why-is-it-important" class="section level2">
+<h2>Data Anonymization: What is it and Why is it important?</h2>
+<p>In data sets, individuals are associated with several attributes, each of which contains some value for that individual. In private data sets, the values of these attributes are often sensitive information, and it could bring harm to the individual or the organization if the values of his attributes were released to outside entities. However, organizations often want to share data with outside entities, or even the public. In order to share data without harming individuals who may have sensitive information stored in the data set, the data set must be cleaned so that it is impossible to determine which individual corresponds to which observation within the data set. This is what data anonymization is all about.</p>
+<p>In any data set with variables and observations, variables will fall into one of the following three categories:</p>
+<ul>
+<li><p><strong>Identifiers</strong> - the values of these variables have a one-to-one or near one-to-one relation with individuals. If an identifier for an individual is known, then it is trival to identify the individual. Examples may include full name, address, social security number, or some other form of unique ID.</p></li>
+<li><p><strong>Key Variables</strong> - the values of these variables may not have a one-to-one relation with individuals, but they are unique enough that a combination of them, some which may be outside of the data set in question, can be used to identify an individual similar to an identifier. Some examples of key variables are first name, last name, gender, race, age, and postal code.</p></li>
+<li><p><strong>Non-identifying Variables</strong> - the values of these variables are very difficult or impossible to identify an individual with. Anything that is not an identifier or a key variable is a non-identifying variable.</p></li>
+</ul>
+<p>When publishing private data for public use, each of the three variable types must be treated differently. Identifiers should always be removed; they expose too much private information to the public. Non-identifying variables, however, provide no private information and may be kept in.</p>
+<p>Key variables are where the problem comes in - the bulk of data analysis typically occurs on key variables, so it is important to keep key variables. However, having too many key variables may make it possible for some adversary to identify individuals within the data set, especially if the data set is combined with auxilliary information (such an action is known as a <em>linkage attack</em>)</p>
+<p>So how does one determine how to deal with these problematic key variables? That’s where <strong>data anonymization</strong> comes in!</p>
+<p>Three common techniques in data anonymization are perturbing, generalizing, and suppressing.</p>
+<div id="perturbation" class="section level3">
+<h3>Perturbation</h3>
+<p>When data is <em>perturbed</em>, each observation is slightly modified so that the overall distribution of data is not significantly changed, but the true values of the data itself are unknown. This makes perurbation useful when analysts want to discover overlying trends, without exposing the actual values of information that may be private.</p>
+<p>There are two methods of data perturbation.</p>
+<ol style="list-style-type: decimal">
+<li><p>The first is <strong>value perturbation</strong>, which is only useful for numeric data. In value perturbation, each element is added with a random value within a user-defined range to distort the original data.</p>
+<pre><code>perturbed value = true value + random noise</code></pre>
+<p>For example, if the true value was 32, and the noise range spanned 1 to 18, then the perturbed value may be anything between 32 and 50.</p>
+<p>Estimations of the true values may be created by subtracting the average random noise value from the perturbed value.</p>
+<pre><code>estimated true value = perturbed value - average random noise</code></pre>
+<p>Continuing the example, if the perturbed value was 47, an analyst attempting to predict the true value would subtract the average random noise of 9 to get 38. 38 is not exactly the true value of 32, but it may or may not be close to it depending on the scale of data.</p>
+<p>If the random noise is small enough compared to the scale of data, the perturbed values may not change significantly, if at all. A larger random noise will make it more difficult to determine the true values.</p></li>
+<li><p>The second method of perturbation is <strong>probability perturbation</strong>, in which each element has a user-defined probability of being replaced by another element within the distribution of values.</p>
+<p>For example, suppose an attribute in some data set is color. 50% of elements are blue, 30% are red, and 20% are yellow. Suppose we are perturbing a red element, and we have decided that probability that an element will be perturbed is 25%. This means that there is a 75% chance that the red element will not be perturbed and remain red, and a 25% chance that it will be perturbed and changed to some color from our distribution, maybe even red. So the probability that it will be a color is…</p>
+<pre><code>probability of blue = (perturbation probability)(percentage of blues) = (.25)(.5) = .125
+
+probability of red = (1 - perturbation probability) + (perturbation probability)(percentage of reds) = .75 + (.25)(.3) = .75 + .075 = .825
+
+probability of yellow  = (perturbation probability)(percentage of yellows) = (.25)(.2) = .05</code></pre>
+<p>So if we had a thousand red elements in our data, about 825 of them would remain red, 125 would become blue, and 50 of them would become yellow.</p>
+<p>The higher the perturbation probability, the more likely it is that the perturbed values will be different than the true values, and the harder it will be for analysts to identify the true values in the original data. However, the distribution of values across the data should not change signficantly, regardless of perturbation probability.</p></li>
+</ol>
+</div>
+<div id="generalization" class="section level3">
+<h3>Generalization</h3>
+<p>In <em>generalization</em>, data is not changed but simplified to a broader, more general form. For categorical data, categories are merged together to create broader categories that provide less precise information. For numeric data, numbers are replaced with numeric ranges that represent a possible value within a spectrum of numbers. For example, if a data set contains the values 41, 75, and 99, these values may be replaced with the numeric ranges 41-60, 61-80, and 81-100. Unlike perturbed data, which is by nature incorrect, generalized data does not lose any of its validity. However, because generalized data is always categorical, it may not be desirable when continuous data is preferred. It may also be difficult or impossible to implement in categorical data if only a few categories exist, particularly if the categories are very distinct from each other or if merging the categories would remove any information that they might convey.</p>
+</div>
+<div id="suppression" class="section level3">
+<h3>Suppression</h3>
+<p>Finally, when data is <em>suppressed</em>, it is simply removed from the data set. Suppression is typically considered the most extreme out of the three techniques described here, because it grants the greatest anonymity while also removing the greatest amount of information. Both attributes (columns) and observations (rows) may be suppressed.</p>
+<p>Typically, attributes are suppressed if they provide too much identifiable information. <em>Identifiers</em> are always suppressed. <em>Key Variables</em> may be suppressed if perturbation or generalization do not sufficiently anonymize the data (i.e., even with perturbation and generalization, it is still possible to identify individuals using some combination of key variables).</p>
+<p>Observations may be suppressed if the individual is so unique that it is difficult to anonymize without removing large amounts of information from the data set, or if the information of the individual is particularly sensitive and must be hidden even when anonymized.</p>
+</div>
+</div>
+<div id="methods" class="section level2">
+<h2>Methods</h2>
+<pre><code>anonymizeR contains several functions to assist in perturbing, generalizing, and suppressing data.</code></pre>
+<div id="perturbing-data-perturbation" class="section level3">
+<h3>Perturbing Data: perturbation()</h3>
+<pre><code>For perturbing data, the anonymizeR package contains one method, perturbation(). perturbation() encompasses both the value and probability perturbation methods. perturbation() takes as arguments...
+- **x**, a data frame
+- **cols**, a vector of column names or indices
+- **method**, whether the user would like to use the value perturbation method, the probability perturbation method, or both
+- the minimum size of noise (value perturbation). There are two possible arguments for this, only one of which is needed:
+    - **minNoise**, the minimum amount of random noise that may be added to any element
+    - **minNoiseQuantile**, the minimum amount of random noise that may be added to any element, taken as a quantile of the total range of values for that column rather than as an exact value. For example, if the minNoiseQuantile is .25, and the value at the 25th quantile of the column's distribution is 5, then every perturbed element will be at least 5 greater than it was before perturbation.
+- the maximum size of noise (value perturbation). There are two possible arguments for this, only one of which is needed:
+    - **maxNoise**, the maximum amount of random noise that may be added to any element
+    - **maxNoiseQuantile**, which functions similarly to minNoiseQuantile but for maximum noise rather than minimum
+- **probability** the probability of replacing an element (probability perturbation)
+
+Then, for each selected column, the method perturbates the data using the selected technique. If both techniques are selected, then the method uses value perturbation for numeric columns, and probability perturbation for non-numeric columns. 
+
+- For value perturbation, if minNoise and maxNoise are provided, then a random value between minNoise and maxNoise is added to each element. If minNoise or maxNoise is not provided, then the method calculates minNoise or maxNoise using minNoiseQuantile or maxNoiseQuantile, taking that quantile from the data for that column, and substituting that into minNoise or maxNoise.
+
+- For probability perturbation, the method stores the original column. It then randomly decides for each element whether or not to replace it, using the user-provided probability (the default is 50%). If the method decides to replace an element, that element is randomly replaced with some other element from the original column. </code></pre>
+</div>
+<div id="generalizing-data-generalizenumeric-and-generalizecategorical" class="section level3">
+<h3>Generalizing Data: generalizeNumeric() and generalizeCategorical()</h3>
+<pre><code>For generalizing data, the anonymizeR package contains a generalizeNumeric() method, which replaces continuous numeric values with categories representing numeric ranges, and a generalizeCategorical() method, which merges categories together. There is also a generalize() method, which is a shortcut for the previous two methods.
+
+generalizeNumeric() takes as arguments...
+- **x**, a data frame
+- **col**, a column name or index
+- How to split the numbers into different numeric ranges. There are two possible arguments for this, only one of which is needed:
+    - **splits**, an ordered vector containing the endpoints of the numeric ranges. For example, if splits contains the values 2, 4, and 6, then there would be four numeric ranges: less than 2, between 2 and 4, between 4 and 6, and greater than 6.
+    - **numSplits**, the number of splits desired. If this is used instead of splits, the method creates splits such that each numeric range contains an equal number of elements (or as close to equal as possible) by using the quantiles of the original column to determine the splits. For example, if numSplits is 2, and if one third of elements are less than 50, one third of elements are between 50 and 100, and one third of elements are more than 100, then the method creates two splits, 50 and 100.
+- **rightClosed**, whether numeric ranges should be closed on the right (Ex: 50 &lt; x &lt;= 100) or not (Ex: 50 &lt;= x &lt; 100). By default FALSE.
+    
+generalizeNumeric() simply iterates through every element in the column and replaces it with whichever numeric range that element falls in. It then returns the data frame.</code></pre>
+<div id="hey-look-another-title" class="section level4">
+<h4>HEY LOOK ANOTHER TITLE!</h4>
+</div>
+</div>
+<div id="section" class="section level3">
+<h3></h3>
+<pre><code>For suppressing data, there is a suppress() method, which removes rows and columns from a data frame, and a randomizeCharacters() method, which replaces all the values in a column (including possibly the column name) with random characters - essentially making it impossible to decipher the original values without outright removing the data from the data frame.</code></pre>
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

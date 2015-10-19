@@ -34,7 +34,7 @@
 #' generalize(data, 2, numSplits=2)
 #' @export
 generalizeNumeric <- function(x, col, 
-                           splits = NULL, numSplits = NULL, rightClosed = FALSE){
+                           splits = NULL, numSplits = 2, rightClosed = FALSE){
     
     if(!(col %in% c(1:ncol(x))) & !(col %in% names(x)))
         stop("col must be the index number or the name of a column in x")
@@ -44,13 +44,13 @@ generalizeNumeric <- function(x, col,
     if(is.null(splits) & is.null(numSplits)) stop("Either splits or numSplits must be provided.")
     
     #If number of splits is provided instead of the splits themselves,
-    #calculate the splits
+    #calculate the splits using quantiles
     if(is.null(splits) & is.numeric(numSplits)){
-        inc <- 1 / numSplits
-        splits <- inc
-        while(splits[length(splits)] + inc <= 1)
-            splits <- c(splits, splits[length(splits)] + inc )
-        splits <- quantile(x[[col]], splits)
+        inc <- 1 / (numSplits+1)
+        quants <- inc
+        while(quants[length(quants)] + inc <= 1)
+            quants <- c(quants, quants[length(quants)] + inc)
+        splits <- quantile(x[[col]], quants[-length(quants)])
     }
     
     #ranges is a vector containing the name of each range

@@ -7,8 +7,8 @@
 #' @param cols the columns that are to be removed - may be numeric (column indices) 
 #' or character (column names). An optional parameter - use if automated suppression
 #' is not desired
-#' @param over use "row" if suppression of rows is desired, "col" is suppression of
-#' columns is desired, or "both" for suppression of both
+#' @param over use "row" or "rows" if suppression of rows is desired, "col" or "cols is 
+#' suppression of columns is desired, or "both" for suppression of both
 #' @param order the order of suppression. See details
 #' @return data.frame with with rows and/or columns removed
 #' @details When anonymizing data, it is often desirable to remove variables that allow for
@@ -37,9 +37,9 @@
 #' @describeIn suppress Shortcut function that may execute suppressRows, suppressCols, or both
 #' @export
 suppress <- function(x, rows = NULL, cols = NULL, over = c("both"), order = 1){
-    if("row" %in% over | "both" %in% over)
+    if("row" %in% over | "rows" %in% over | "both" %in% over)
         suppressRow(x, rows, order)
-    if("col" %in% over | "both" %in% over)
+    if("col" %in% over | "cols" %in% over | "both" %in% over)
         suppressCol(x, cols, order)
 }
 

@@ -1,3 +1,5 @@
+data("students")
+
 #' University Students
 #' 
 #' A dataset containing the academic information of 40 students
