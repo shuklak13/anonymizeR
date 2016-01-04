@@ -13,7 +13,7 @@
 #' @return data.frame with with rows and/or columns removed
 #' @details When anonymizing data, it is often desirable to remove variables that allow for
 #' individuals to be easily identified. It may also be desirable to remove
-#' individuals from the data if they contain unique attributes that make them easy
+#' individuals from the data if they possess unique attributes that make them easy
 #' to identify. This function assists in anonymization by removing rows or columns
 #' that fall under these categories.
 #' The rows and columns that are desired to be removed may be specified as a
@@ -22,17 +22,15 @@
 #' containing completely unique observations and/or columns containing
 #' identifiable information.
 #' The order parameter is used to increase the anonymity of the data. It can be 
-#' thought of as the minimum number of times a value must occur for it to not be 
-#' considered identifiable.
-#' If a column contains a variable that does not occur 
-#' at least order number of times, that column is removed.
-#' Similarly, if a row does not occur more than order number
-#' of times, then that row is removed.
+#' thought of as the minimum number of times a value must occur for it to be 
+#' considered unidentifiable.
+#' If a row or column contains a variable that does not occur 
+#' at least (order) number of times, that row or column is removed.
 #' @examples
 #' suppress(data)
 #' suppress(data, over=c("rows"))
-#' suppressRow(data, rows=c(29,34,70))
-#' suppressCol(data, order=3)
+#' suppressRows(data, rows=c(29,34,70))
+#' suppressCols(data, order=3)
 
 #' @describeIn suppress Shortcut function that may execute suppressRows, suppressCols, or both
 #' @export

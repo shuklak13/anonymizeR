@@ -15,7 +15,7 @@ data("students")
 #' \item{Gender}{The student's gender. "M" or "F".}
 #' \item{Year}{The student's year at his or her university. Categorical.}
 #' \item{Major}{The student's major of study. Categorical.}
-#' \item{GPA}{The student's grade point average. Numeric. Private information.}
+#' \item{GPA}{The student's grade point average. Numeric. Private information,.}
 #' \item{FinancialAid}{Is the student recieving financial aid? "YES" or "NO". Private information.}
 #' }
 students
