@@ -41,8 +41,7 @@ generateSynthetic <- function(data, baseline = 1){
     nonBaseAttributes <- setdiff(1:ncol(data), baseline)
     for(i in nonBaseAttributes){
         print(i)
-        generatedAttribute <- genAttribute(data, baseline, i, syntheticData[1], dataPrivacyConstant)
-        syntheticData[ , i] <- generatedAttribute
+        syntheticData[ , i] <- genAttribute(data, baseline, i, syntheticData[1], dataPrivacyConstant)
     }
     
     if(baseline!=1){

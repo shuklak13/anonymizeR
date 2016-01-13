@@ -1,0 +1,19 @@
+This is just a small text file to keep track of my progress with fixing the synthetic data function.
+
+THINGS TO FIX:
+    CURRENTLY, BASELINE != 1 DOES NOT WORK
+    ADD DOCUMENTATION TO THESE FUNCTIONS!!! (HELPER FUNCTIONS)
+    DOES NOT WORK WITH THE as.data.frame(hairEyeColor) DATA SET
+    
+Replace attrIndex with col
+Replace baseline with
+Replace baselineVals with
+
+Using the Hubway data and baseline=2...
+    (I also need to try with another baseline, because baseline=1 (start station) is so similar to baseline=2 (end station))
+    CONFIRMED 2 WORK:
+        syntheticData <- data.frame(genIndependentAttribute(data, baseline, dataPrivacyConstant))
+        nonBaseAttributes <- setdiff(1:ncol(data), baseline)
+    Does NOT Work:
+        i = 1: syntheticData[ , i] <- genAttribute(data, baseline, i, syntheticData[1], dataPrivacyConstant)
+            genAttribute(data, baseline, i, syntheticData[1], dataPrivacyConstant)
