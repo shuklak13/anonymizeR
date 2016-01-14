@@ -28,15 +28,26 @@ library(deamer)
 #' @return a data.frame of synthetic data
 generateSynthetic <- function(data, independent = 1){
     dataPrivacyConstant <- 2/0.9    #may be changed at a later release if necessary
+
+    independentCol <- data.frame(genIndependentAttribute(data, independent, dataPrivacyConstant))
     
-    #create a distribution of elements for the first column
-    syntheticData <- data.frame(genIndependentAttribute(data, independent, dataPrivacyConstant))
-    
-    #we grow the synthetic data column-by-column over the non-base attributes
-    nonBaseAttributes <- setdiff(1:ncol(data), independent)
-    for(i in nonBaseAttributes){
+    #we grow the synthetic data column-by-column
+    for(i in 1:ncol(data)){
         print(i)
-        syntheticData[ , i] <- genAttribute(data, independent, i, syntheticData[1], dataPrivacyConstant)
+        
+        #genAttribute() fills in the dependent columns
+        if(i==independent){
+            newCol <- independentCol
+        }else{
+            newCol <- genAttribute(data, independent, i, independentCol, dataPrivacyConstant)
+        }
+        
+        #the first column initializes the data frame
+        if(i==1){
+            syntheticData <- data.frame(newCol)
+        }else{
+            syntheticData[ , i] <- newCol
+        }
     }
     
     if(independent!=1){
@@ -74,7 +85,7 @@ genIndependentAttribute <- function(data, independent, dataPrivacyConstant){
     
     #add laplace noise to the counts
     dPcounts <- sapply(counts, function(x){
-        x <- x + rlaplace(1, scale = dataPrivacyConstant)
+        x <- x + rlaplace(1, b = dataPrivacyConstant)
         if(x<0) x=0
         x
     })
@@ -100,42 +111,41 @@ genIndependentAttribute <- function(data, independent, dataPrivacyConstant){
 #' @param data the data.frame containing the original data
 #' @param independent the column index for the independent attribute in data
 #' @param dependent the column index for the dependent attribute in data
-#' @param independentVals the synthetic data for the independent atribute
+#' @param independentCol the synthetic data for the independent atribute
 #' @param dataPrivacyConstant the scale of the laplace distribution. A higher value
 #' means a synthetic data distribution farther from the true data distribution.
 #' Defaults to 20/9.
 #' @return 
 #' a vector of synthetic data for the dependent attribute
-genDependentAttribute <- function(data, independent, dependent, independentVals, dataPrivacyConstant){
+genDependentAttribute <- function(data, independent, dependent, independentCol, dataPrivacyConstant){
     
-    #generation works on the assumption that data is categorical
+    #we assume data is categorical
     data[dependent] <- as.factor(unlist(data[dependent]))
     
-    #each of the unique independent values has its own distribution
-    distributions <- unique(unlist(data[independent]))
+    #unique independent attribute values
+    independentVals <- unique(unlist(data[independent]))
     
-    #iterate through each of the distributions (unique values of independent)
-        #at each one, return a vector of values for the attribute
-    valAtEachDistribution <- sapply(distributions, function(independentVal){
-        #sameindependentRows <- data[independent] == independentVal
+    #iterate through each of the independentVals
+        #at each one, return a vector of values for the dependent attribute
+    valAtEachDistribution <- sapply(independentVals, function(independentVal){
         sameindependentRows <- unlist(data[independent]) == independentVal
         data[sameindependentRows, dependent]
     })
     
-    names(valAtEachDistribution) <- distributions
+    names(valAtEachDistribution) <- independentVals
     
     #create a matrix from valAtEachDistribution
         #Rows: number of occurances for each value of the new attribute
         #Cols: each distribution / each unique value of the independent attribute
     counts <- sapply(valAtEachDistribution, table)
-    attrVals <- rownames(counts)
+    dependentCol <- rownames(counts)
     
     #add laplace noise to the counts
     dPcounts <- apply(counts, c(1,2), function(x){  #x = num of occurances of value in distribution
         oldx <- x
         newx <- x
         if(x!=0) {                          #we only want to add noise to the values that actually occur
-            newx <- x + rlaplace(1, scale = dataPrivacyConstant)
+            newx <- x + rlaplace(1, b = dataPrivacyConstant)
             if(newx<=0) newx <- x/1000      #we don't want to "lose" a value
             #If it falls <=0, then set the probability to a very small value but keep it
             #if x is allowed to become 0, we may have every value have a 0% chance of occuring - and that's no good!
@@ -148,13 +158,13 @@ genDependentAttribute <- function(data, independent, dependent, independentVals,
     cumProbDist <- apply(probDist, 2, cumsum)
     
     #generate synthetic data from the cumulative probability distributions
-    newColumn <- sapply(unlist(independentVals), function(independentVal){    #iterate over the values for the independent column
+    newColumn <- sapply(unlist(independentCol), function(independentVal){    #iterate over the values for the independent column
         #print(independentVal)
         cPDforthisindependent <- cumProbDist[, toString(independentVal)]  #the cumulative probability distribution for this independent value
         
         #generate random val from the attribute's distribution
         r <- runif(1)                               #r is a random number [0,1)
-        attVal <- attrVals[which(r<cPDforthisindependent)[1]]  #find first group which r falls under
+        attVal <- dependentCol[which(r<cPDforthisindependent)[1]]  #find first group which r falls under
     })
     
     #return the synthetic data
