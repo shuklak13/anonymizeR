@@ -1,6 +1,0 @@
-This is just a small text file to keep track of my progress with fixing the synthetic data function.
-
-THINGS TO FIX:
-    DOES NOT WORK WITH THE data.frame(hairEyeColor) DATA SET
-         Error in apply(counts, c(1, 2), function(x) { : 
-            dim(X) must have a positive length 

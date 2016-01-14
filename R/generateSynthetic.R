@@ -39,7 +39,7 @@ generateSynthetic <- function(data, independent = 1){
         if(i==independent){
             newCol <- independentCol
         }else{
-            newCol <- genAttribute(data, independent, i, independentCol, dataPrivacyConstant)
+            newCol <- genDependentAttribute(data, independent, i, independentCol, dataPrivacyConstant)
         }
         
         #the first column initializes the data frame
@@ -126,22 +126,20 @@ genDependentAttribute <- function(data, independent, dependent, independentCol, 
     independentVals <- unique(unlist(data[independent]))
     
     #iterate through each of the independentVals
-        #at each one, return a vector of values for the dependent attribute
-    valAtEachDistribution <- sapply(independentVals, function(independentVal){
-        sameindependentRows <- unlist(data[independent]) == independentVal
-        data[sameindependentRows, dependent]
+        #at each one, return a vector of dependent values for that independent value
+    dependentsForIndependents <- lapply(independentVals, function(independentVal){
+            filteredRows <- unlist(data[independent]) == independentVal
+            data[filteredRows, dependent]
     })
+    names(dependentsForIndependents) <- independentVals
     
-    names(valAtEachDistribution) <- independentVals
-    
-    #create a matrix from valAtEachDistribution
-        #Rows: number of occurances for each value of the new attribute
-        #Cols: each distribution / each unique value of the independent attribute
-    counts <- sapply(valAtEachDistribution, table)
-    dependentCol <- rownames(counts)
+    #create a matrix from dependentsForIndependents
+        #Cols: each unique value of the independent attribute
+        #Rows: number of occurances of each dependent value at that independent value
+    counts <- sapply(dependentsForIndependents, table)
     
     #add laplace noise to the counts
-    dPcounts <- apply(counts, c(1,2), function(x){  #x = num of occurances of value in distribution
+    dPcounts <- apply(counts, c(1, 2), function(x){  #x = num of occurances of value in distribution
         oldx <- x
         newx <- x
         if(x!=0) {                          #we only want to add noise to the values that actually occur
@@ -157,16 +155,21 @@ genDependentAttribute <- function(data, independent, dependent, independentCol, 
     probDist <- apply(dPcounts, 2, function(col) col/sum(col))
     cumProbDist <- apply(probDist, 2, cumsum)
     
-    #generate synthetic data from the cumulative probability distributions
-    newColumn <- sapply(unlist(independentCol), function(independentVal){    #iterate over the values for the independent column
-        #print(independentVal)
-        cPDforthisindependent <- cumProbDist[, toString(independentVal)]  #the cumulative probability distribution for this independent value
+    #unique dependent values
+    dependentVals <- rownames(cumProbDist)
+    
+    #generate new column from the cumulative probability distributions
+    dependentCol <- sapply(unlist(independentCol), function(independentVal){    #iterate over independent column
+        
+        #cumulative probability distribution of dependent attribute for this independent value
+        cPDforthisindependent <- cumProbDist[, toString(independentVal)]
         
         #generate random val from the attribute's distribution
-        r <- runif(1)                               #r is a random number [0,1)
-        attVal <- dependentCol[which(r<cPDforthisindependent)[1]]  #find first group which r falls under
+        r <- runif(1)   #random[0,1)
+        dvIndex <- which(r<cPDforthisindependent)[1] #index of first dependent value r falls under
+        dependentVals[dvIndex]    #add this value to the synthetic dependent column
     })
     
     #return the synthetic data
-    newColumn
+    dependentCol
 }
