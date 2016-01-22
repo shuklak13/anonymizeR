@@ -1,14 +1,16 @@
 Package: anonymizeR
 Type: Package
-Title: Provides several functions useful for anonymizing data in data frames.
-Version: 0.8
-Date: 2015-08-14
+Title: Simple Functions to Anonymize Data
+Version: 0.0.0.9000
+Date: 2016-01-22
 Authors@R: person("Karan", "Shukla", email = "shuklak13@gmail.com", role = c("aut", "cre"))
-Description: More about what it does (maybe more than one line)
-	STILL NEED TO MAKE DESCRIPTION
+Description: anonymizeR is a package containing simple and easy-to-use tools for
+    creating anonymous data sets. These tools take the form of functions which
+    may be used on data frames to remove potentially identifying information.
 URL: https://github.com/shuklak13/anonymizeR
-Depends: R (>= 3.2.1)
+Depends: R (>= 3.2.3)
 License: MIT + file LICENSE
 LazyData: true
+Imports: deamer (>= 1.0)
 Suggests: knitr
 VignetteBuilder: knitr
