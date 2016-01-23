@@ -6,7 +6,7 @@
 #' @param dataPrivacyConstant the scale of the laplace distribution. A higher value
 #' means a synthetic data distribution farther from the true data distribution.
 #' Defaults to 20/9.
-#' @return 
+#' @return
 #' a vector of synthetic data for the dependent attribute
 genDependentAttribute <- function(data, independent, dependent, independentCol,
                                   dataPrivacyConstant){
@@ -24,44 +24,48 @@ genDependentAttribute <- function(data, independent, dependent, independentCol,
         data[filteredRows, dependent]
     })
     names(dependentsForIndependents) <- independentVals
-    
+
     #create a matrix from dependentsForIndependents
     #Cols: each unique value of the independent attribute
     #Rows: number of occurances of each dependent value at that independent value
     counts <- sapply(dependentsForIndependents, table)
-    
+
     #add laplace noise to the counts
-    dPcounts <- apply(counts, c(1, 2), function(x){  #x = num of occurances of value in distribution
-        oldx <- x
+    dPcounts <- apply(counts, c(1, 2), function(x){
+        #x = num of occurances of value in distribution
         newx <- x
-        if(x!=0) {                          #we only want to add noise to the values that actually occur
+        #only add noise to values that actually occur
+        if(x != 0) {
             newx <- x + deamer::rlaplace(1, b = dataPrivacyConstant)
-            if(newx<=0) newx <- x/1000      #we don't want to "lose" a value
-            #If it falls <=0, then set the probability to a very small value but keep it
-            #if x is allowed to become 0, we may have every value have a 0% chance of occuring - and that's no good!
+            if(newx <= 0) newx <- x/1000
+            #If x falls below 0, 
+                #set it to a very small value but don't get rid of it!
+                #If x is allowed to become 0,
+                #the value it represents cannot occur in the synthetic data!
+            #Then it would become possible for all values to have 0 occurances!
         }
         newx
     })
-    
-    #for each distribution, convert the counts to cumulative probability distributions 
-    probDist <- apply(dPcounts, 2, function(col) col/sum(col))
+
+    #for each distribution, convert the counts to cumulative probability distributions
+    probDist <- apply(dPcounts, 2, function(col) col / sum(col))
     cumProbDist <- apply(probDist, 2, cumsum)
-    
+
     #unique dependent values
     dependentVals <- rownames(cumProbDist)
-    
+
     #generate new column from the cumulative probability distributions
-    dependentCol <- sapply(unlist(independentCol), function(independentVal){    #iterate over independent column
-        
-        #cumulative probability distribution of dependent attribute for this independent value
+    dependentCol <- sapply(unlist(independentCol), function(independentVal){
+        #iterate over independent values
+
+        #cumulative probability distribution of dependent attribute
+            #for this independent value
         cPDforthisindependent <- cumProbDist[, toString(independentVal)]
-        
+
         #generate random val from the attribute's distribution
-        r <- runif(1)   #random[0,1)
-        dvIndex <- which(r<cPDforthisindependent)[1] #index of first dependent value r falls under
-        dependentVals[dvIndex]    #add this value to the synthetic dependent column
+        generateRandom(dependentVals, cPDforthisindependent)
     })
-    
+
     #return the synthetic data
     dependentCol
 }

@@ -1,7 +1,7 @@
 #' Generalize a Column
 #'
 #' @param x a data.frame
-#' @param col the column that is to be generalized - may be numeric (column indices) 
+#' @param col the column that is to be generalized - may be numeric (column indices)
 #' or character (column names)
 #' @param splits numeric - numeric vector containing the numbers which should serve as
 #' boundary points between each numeric category. Either this or numSplits is a
@@ -17,24 +17,24 @@
 #' @return data.frame with with specified column generalized
 #' @details This function calls either generalize_numeric or generalize_categorical
 #' depending on which arguments are provided.
-#' splits or numSplits are required for generalize_numeric, so if either of 
+#' splits or numSplits are required for generalize_numeric, so if either of
 #' these arguments are provided, generalize_numeric will be called.
-#' newCategories and mapping are required for generalize_categorical. If 
-#' neither splits nor numSplits is provided, and both newCategories and mapping are 
+#' newCategories and mapping are required for generalize_categorical. If
+#' neither splits nor numSplits is provided, and both newCategories and mapping are
 #' provided, then generalize_categorical is called.
 #' @family generalize functions
 #' @examples
 #' age <- c(51, 42, 23, 44, 25)
 #' maritalStatus <- c("Married", "Single", "Single", "Divorced", "Married")
 #' data <- data.frame(age, maritalStatus)
-#' 
+#'
 #' generalize(data, 1, splits=c(30, 50))
 #' generalize(data, 2, newCategories=c("Has Been Married","Has Not Been Married"), mapping=c(1,2,1,1))
 #' @export
-generalize <- function(x, col, 
+generalize <- function(x, col,
                            splits = NULL, numSplits = NULL, rightClosed = FALSE,
                            newCategories = NULL, oldCategories = unique(x[[col]]), mapping = NULL){
-    
+
     if(!is.null(splits) | !is.null(numSplits))
         generalize_numeric(x, col, splits, numSplits, rightClosed)
     else if(!is.null(newCategories) & !is.null(mapping))
