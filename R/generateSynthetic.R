@@ -1,6 +1,3 @@
-#if(!("deamer" %in% installed.packages()[,"Package"])) install.packages("deamer")
-#library(deamer)
-
 #' Generate synthetic data
 #'
 #' @param data the data.frame containing the original data
@@ -27,31 +24,33 @@
 #'  Note that all attributes are treated as categorical.
 #' @return a data.frame of synthetic data
 .generateSynthetic <- function(data, independent = 1){
-    dataPrivacyConstant <- 2/0.9    #may be changed at a later release if necessary
+    dataPrivacyConstant <- 2 / 0.9  #change at a later release if necessary
 
-    independentCol <- data.frame(genIndependentAttribute(data, independent, dataPrivacyConstant))
+    independentCol <- data.frame(
+        genIndependentAttribute(data, independent, dataPrivacyConstant))
 
     #we grow the synthetic data column-by-column
     for(i in 1:ncol(data)){
-        print(i)
-
+        
         #genAttribute() fills in the dependent columns
         if(i==independent){
             newCol <- independentCol
         }else{
-            newCol <- genDependentAttribute(data, independent, i, independentCol, dataPrivacyConstant)
+            newCol <- genDependentAttribute(
+                data, independent, i, independentCol, dataPrivacyConstant)
         }
 
         #the first column initializes the data frame
-        if(i==1){
+        if(i == 1){
             syntheticData <- data.frame(newCol)
         }else{
             syntheticData[ , i] <- newCol
         }
     }
 
-    if(independent!=1){
-        originalColumnOrder <- c(2:independent, 1, (independent+1):ncol(data))    #insert the independent column back in its original position
+    if(independent != 1){
+        #insert the independent column back in its original position
+        originalColumnOrder <- c(2:independent, 1, (independent+1):ncol(data))
         syntheticData <- syntheticData[, originalColumnOrder]
     }
 
@@ -64,8 +63,6 @@
 #' @param values the possible values of the attribute
 #' @param cPD the cumulative probability distribution for the values
 selectFromCPD <- function(values, cPD){
-    
     r <- runif(1) #random[0,1)
-    
-    values[which(r<cPD)[1]]
+    values[which(r < cPD)[1]]
 }

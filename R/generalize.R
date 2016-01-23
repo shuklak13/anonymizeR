@@ -32,13 +32,15 @@
 #' generalize(data, 2, newCategories=c("Has Been Married","Has Not Been Married"), mapping=c(1,2,1,1))
 #' @export
 generalize <- function(x, col,
-                           splits = NULL, numSplits = NULL, rightClosed = FALSE,
-                           newCategories = NULL, oldCategories = unique(x[[col]]), mapping = NULL){
+                 splits = NULL, numSplits = NULL, rightClosed = FALSE,
+                 newCategories = NULL, oldCategories = unique(x[[col]]), mapping = NULL){
 
     if(!is.null(splits) | !is.null(numSplits))
         generalize_numeric(x, col, splits, numSplits, rightClosed)
     else if(!is.null(newCategories) & !is.null(mapping))
         generalize_categorical(x, col, newCategories, mapping)
-    else stop("Incorrect arguments \neither provide splits argument for numeric generalization,
-              \nor provide oldCategories, newCategories, and mapping arguments for categorical generalization")
+    else stop("Incorrect arguments \n
+                either provide splits argument for numeric generalization, \n
+                or provide oldCategories, newCategories, and mapping arguments
+                    for categorical generalization")
 }

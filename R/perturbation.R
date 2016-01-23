@@ -67,12 +67,15 @@
 #' perturbation(data, minNoiseQuantile = .1, maxNoise = .9)
 #' randomizeCategories(data, 1:5, probability = .7)
 #' @export
-perturbation <- function(x, cols = 1:ncol(x), method = c("VALUE", "PROBABILITY"), magnitude = "MEDIUM",
-                         minNoise = NULL, maxNoise = NULL, minNoiseQuantile = NULL, maxNoiseQuantile = NULL,
+perturbation <- function(x, cols = 1:ncol(x),
+                         method = c("VALUE", "PROBABILITY"),
+                         magnitude = "MEDIUM",
+                         minNoise = NULL, maxNoise = NULL,
+                         minNoiseQuantile = NULL, maxNoiseQuantile = NULL,
                          probability = NULL){
 
     if(sum(method == "BOTH") > 0)
-        method = c("VALUE", "PROBABILITY")
+        method <- c("VALUE", "PROBABILITY")
 
     for(m in method)
         if(!(toupper(m) %in% c("VALUE","PROBABILITY")))
@@ -84,7 +87,7 @@ perturbation <- function(x, cols = 1:ncol(x), method = c("VALUE", "PROBABILITY")
     if(sum(legitimateCols) != length(cols))
         stop("cols must be the indices or names of columns in x")
 
-    #if minimum, maximum, or probability were not set, use magnitude to determine
+    #if min max, or probability were not set, use magnitude to determine
     if(is.null(minNoise) & is.null(minNoiseQuantile))
         minNoise <- 0
     if(is.null(maxNoise) & is.null(maxNoiseQuantile))
@@ -92,9 +95,9 @@ perturbation <- function(x, cols = 1:ncol(x), method = c("VALUE", "PROBABILITY")
         else if(toupper(magnitude) == "MEDIUM") maxNoiseQuantile <- .5
         else if(toupper(magnitude) == "HIGH") maxNoiseQuantile <- .75
     if(is.null(probability))
-        if(toupper(magnitude) == "LOW") probability = .25
-        else if(toupper(magnitude) == "MEDIUM") probability = .5
-        else if(toupper(magnitude) == "HIGH") probability = .75
+        if(toupper(magnitude) == "LOW") probability <- .25
+        else if(toupper(magnitude) == "MEDIUM") probability <- .5
+        else if(toupper(magnitude) == "HIGH") probability <- .75
 
     for(col in cols){
             #add random noise
@@ -104,9 +107,11 @@ perturbation <- function(x, cols = 1:ncol(x), method = c("VALUE", "PROBABILITY")
                 minNoise <- quantile(x[[col]], minNoiseQuantile)
             if(is.null(maxNoise))
                 maxNoise <- quantile(x[[col]], maxNoiseQuantile)
-            x[col] <- sapply(x[[col]], function(element) element + sample(minNoise:maxNoise, 1))
+            x[col] <- sapply(x[[col]], function(element)
+                                        element + sample(minNoise:maxNoise, 1))
         }
-            #for each element there is a random chance that it will be replaced by another element from the distribution.
+            #For each element, there is a random chance that it will be 
+                #replaced by another element from the distribution.
             #probability determines how often elements are replaced.
         else if(sum(toupper(method) == "PROBABILITY") > 0){
             oldVals <- x[[col]]

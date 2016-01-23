@@ -33,20 +33,23 @@
 #' generalize(data, 2, splits=180, rightClosed=TRUE)
 #' generalize(data, 2, numSplits=2)
 #' @export
-generalizeNumeric <- function(x, col,
-                           splits = NULL, numSplits = 2, rightClosed = FALSE){
+generalizeNumeric <- function(x, col, 
+                              splits = NULL, numSplits = 2, 
+                              rightClosed = FALSE){
 
     if(!(col %in% c(1:ncol(x))) & !(col %in% names(x)))
         stop("col must be the index number or the name of a column in x")
 
-    if(!is.numeric(x[[col]])) stop("This column is not numeric. It cannot be generalized numerically.")
+    if(!is.numeric(x[[col]]))
+        stop("This column is not numeric. It cannot be generalized numerically.")
 
-    if(is.null(splits) & is.null(numSplits)) stop("Either splits or numSplits must be provided.")
+    if(is.null(splits) & is.null(numSplits))
+        stop("Either splits or numSplits must be provided.")
 
     #If number of splits is provided instead of the splits themselves,
     #calculate the splits using quantiles
     if(is.null(splits) & is.numeric(numSplits)){
-        inc <- 1 / (numSplits+1)
+        inc <- 1 / (numSplits + 1)
         quants <- inc
         while(quants[length(quants)] + inc <= 1)
             quants <- c(quants, quants[length(quants)] + inc)
@@ -92,7 +95,7 @@ generalizeNumeric <- function(x, col,
             else if (splits[length(splits)] < num)
                 range <- ranges[length(ranges)]
             else
-                for(c in 2:(length(ranges)-1))
+                for(c in 2:(length(ranges) - 1))
                     if(splits[c-1] < num & num <= splits[c]){
                         range <- ranges[c]
                         break

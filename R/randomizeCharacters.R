@@ -18,7 +18,8 @@
 #' randomCharacters(data, 2, consistent=FALSE)
 #' randomCharacters(data, c("Gender","Education"), randomizeNames=TRUE)
 #' @export
-randomizeCharacters <- function(x, cols = 1:ncol(x), randomizeNames = FALSE, consistent = TRUE, numChars = 10){
+randomizeCharacters <- function(x, cols = 1:ncol(x), randomizeNames = FALSE,
+                                consistent = TRUE, numChars = 10){
 
     if(!(cols %in% c(1:ncol(x))) & !(cols %in% names(x)))
         stop("cols must be the indices or names of columns in x")
@@ -36,14 +37,15 @@ randomizeCharacters <- function(x, cols = 1:ncol(x), randomizeNames = FALSE, con
             column <- as.character(unlist(column))
 
             #create a random character replacement for each unique element
-                #so elements that reoccur are mapped to the same random character sequence
+                #so that within a dataset,
+                #elements are always mapped to same random character sequence
             uniqueElements <- unique(as.character(unlist(column)))
             randomReplacements <- uniqueElements
             for(i in 1:length(randomReplacements))
                 randomReplacements[i] <- randChars()
 
             for(c in 1:length(column)){
-                #find that element's random replacement, and insert it into the column
+                #find element's replacement, and insert it into column
                 index <- match(column[c], uniqueElements)
                 column[c] <- randomReplacements[index]
             }

@@ -54,8 +54,8 @@ suppressRows <- function(x, rows = NULL, order = 1){
         else if(is.numeric(rows)) suppressedX <- x[-rows,]
     }
 
-        #if rows are not specified, find rows with insufficient number of occurances
-        #and remove them
+        #if rows are not specified, 
+        #find and remove rows with insufficient number of occurances
     else{
         rowValues <- apply(x, 1, function(x) paste(x, collapse = ""))
         numOccurances <- table(rowValues)
@@ -75,7 +75,8 @@ suppressCols <- function(x, cols = NULL, order = 1){
     if(!is.null(cols & !(cols %in% c(1:ncol(x))) & !(cols %in% names(x))))
         stop("cols must be the indices or names of columns in x")
 
-        #if columns unspecified, find columns with elements occuring an insufficient number of times
+        #if columns unspecified,
+        #find columns with elements occuring an insufficient number of times
     if(is.null(cols))
         for(colname in names(x)){
             numOccurances <- table(x[colname])
@@ -100,4 +101,5 @@ suppressCols <- function(x, cols = NULL, order = 1){
 
 #' @describeIn suppress identical to suppressCols
 #' @export
-suppressColumns <- function(x, cols = NULL, order = 1)   suppressCols(x, cols, order)
+suppressColumns <- function(x, cols = NULL, order = 1)
+    suppressCols(x, cols, order)

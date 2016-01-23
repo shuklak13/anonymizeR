@@ -16,7 +16,9 @@
 #' @return
 #' a vector of synthetic data for the independent attribute
 genIndependentAttribute <- function(data, independent, dataPrivacyConstant){
-    independentTable <- table(data[independent])  #table with number of occurances of each value of the independent variable
+    
+    #table with number of occurances of each value of the independent variable
+    independentTable <- table(data[independent])
 
     groups <- names(independentTable)  #the values of the independent variable
     counts <- independentTable      #number of occurances of each value
@@ -24,7 +26,7 @@ genIndependentAttribute <- function(data, independent, dataPrivacyConstant){
     #add laplace noise to the counts
     dPcounts <- sapply(counts, function(x){
         x <- x + deamer::rlaplace(1, b = dataPrivacyConstant)
-        if(x<0) x=0
+        if(x < 0) x <- 0
         x
     })
 
@@ -36,7 +38,8 @@ genIndependentAttribute <- function(data, independent, dataPrivacyConstant){
     })
 
     #generate synthetic data from the cumulative probability distributions
-    syntheticData <- sapply(1:total, function(x) selectFromCPD(group, cumProbDist))
+    syntheticData <- sapply(1:total, 
+                            function(x) selectFromCPD(groups, cumProbDist))
 
     #return the synthetic data
     syntheticData
