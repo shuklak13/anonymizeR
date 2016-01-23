@@ -63,7 +63,7 @@ genDependentAttribute <- function(data, independent, dependent, independentCol,
         cPDforthisindependent <- cumProbDist[, toString(independentVal)]
 
         #generate random val from the attribute's distribution
-        generateRandom(dependentVals, cPDforthisindependent)
+        selectFromCPD(dependentVals, cPDforthisindependent)
     })
 
     #return the synthetic data
